@@ -1,5 +1,7 @@
 package Game.pieces;
 
+import static java.lang.Math.abs;
+
 public class King {
     public Position getPosition() {
         return position;
@@ -9,7 +11,7 @@ public class King {
         this.position = position;
     }
 
-    Position position= new Position();
+    Position position;
     int color;
     public int getColor() {
         return color;
@@ -22,7 +24,12 @@ public class King {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-
+        if (0< newPosition.getColumnNumber()<9 && 0<this.position.getRow()<9 && board.isEmpty()){
+            int deltaRow=abs(newPosition.getRow()-this.position.getRow());
+            int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
+            return (deltaRow<=1 || deltaColumn<=1);
+        }
+        return false;
     }
 
     public String toString(){

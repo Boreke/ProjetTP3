@@ -1,5 +1,7 @@
 package Game.pieces;
 
+import static java.lang.Math.abs;
+
 public class Bishop {
     public Position getPosition() {
         return position;
@@ -22,7 +24,12 @@ public class Bishop {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-
+        if (0<newPosition.getRow()<9 && 0<newPosition.getColumnNumber()<9 && board.isEmpty()){
+            int deltaRow=abs(newPosition.getRow()-this.position.getRow());
+            int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
+            return deltaRow==deltaColumn;
+        }
+        return false;
     }
 
     public String toString(){
