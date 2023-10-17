@@ -23,10 +23,27 @@ public class Pawn {
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         int deltaPos=newPosition.getRow()-this.position.getRow();
-        if (this.color==0){
-            if (this.position.getRow()==2){
-                if (newPosition.getRow()-this.position.getRow()==2||newPosition.getRow()-this.position.getRow()==2);
-            }
+        switch(this.color){
+            case 0:
+                if (deltaPos<=2 && this.position.getRow()==2 && board.isEmpty()){
+                    this.position=newPosition;
+                    return true;
+                } else if (deltaPos == 1 && board.isEmpty) {
+                    this.position=newPosition;
+                    return  true;
+                }else {
+                    return false;
+                }
+            case 1:
+                if (deltaPos>=2 && this.position.getRow()==6 && board.isEmpty()){
+                    this.position=newPosition;
+                    return true;
+                } else if (deltaPos == 1 && board.isEmpty) {
+                    this.position=newPosition;
+                    return  true;
+                }else {
+                    return false;
+                }
         }
     }
 
