@@ -24,7 +24,7 @@ public class King {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        if (0< newPosition.getColumnNumber()<9 && 0<this.position.getRow()<9 && board.isEmpty()){
+        if (newPosition.isValid() && board.isEmpty()){
             int deltaRow=abs(newPosition.getRow()-this.position.getRow());
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
             return (deltaRow<=1 || deltaColumn<=1);

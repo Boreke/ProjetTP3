@@ -57,6 +57,9 @@ public abstract class Position {
         this.column = column;
     }
 
+    public boolean isValid(){
+        return 1 < this.getColumnNumber() < 9 && 1 < this.getRow() < 9;
+    }
     @Override
     public String toString() {
         return "game.pieces.Position{" + column + row + "}";

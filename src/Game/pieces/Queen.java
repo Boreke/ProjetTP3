@@ -24,7 +24,7 @@ public class Queen {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        if (0<newPosition.getRow()<9 && 0<newPosition.getColumnNumber()<9 && board.isEmpty()){
+        if (newPosition.isValid() && board.isEmpty()){
             int deltaRow=abs(newPosition.getRow()-this.position.getRow());
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
             return deltaRow==deltaColumn || this.position.getColumnNumber()==newPosition.getColumnNumber() || this.position.getRow()== newPosition.getRow();
