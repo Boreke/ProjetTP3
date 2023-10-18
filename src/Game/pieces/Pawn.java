@@ -1,6 +1,10 @@
 package Game.pieces;
 
+import static java.lang.Math.abs;
+
 public class Pawn {
+    int color;
+    Position position = new Position();
     public Position getPosition() {
         return position;
     }
@@ -9,8 +13,6 @@ public class Pawn {
         this.position = position;
     }
 
-    Position position = new Position();
-    int color;
     public int getColor() {
         return color;
     }
@@ -24,22 +26,19 @@ public class Pawn {
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
             board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
-            int deltaPos;
+            int deltaRow=abs(newPosition.getRow() - this.position.getRow());
             switch (this.color) {
                 case 0:
-                    deltaPos = newPosition.getRow() - this.position.getRow();
-                    if (deltaPos == 2 && this.position.getRow() == 2) {
+                    if (deltaRow == 2 && this.position.getRow() == 2) {
                         return true;
-                    } else return deltaPos == 1;
+                    } else return deltaRow == 1;
                 case 1:
-                    deltaPos = -newPosition.getRow() + this.position.getRow();
-                    if (deltaPos == 2 && this.position.getRow() == 6) {
+                    if (deltaRow == 2 && this.position.getRow() == 6) {
                         return true;
-                    } else return deltaPos == 1;
+                    } else return deltaRow == 1;
             }
         }
         return false;
-
     }
 
     public String toString(){

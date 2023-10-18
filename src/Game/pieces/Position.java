@@ -2,6 +2,8 @@ package Game.pieces;
 
 public class Position {
     private int row;
+    private int columnNumber;
+    private char column;
 
     public int getRow() {
         return row;
@@ -11,15 +13,9 @@ public class Position {
         if (0<=row&&row<=8)this.row = row;
     }
 
-
-    private char column;
-
     private void setColumnNumber(int columnNumber) {
         this.columnNumber = columnNumber;
     }
-
-    private int columnNumber;
-
 
     public char getColumn() {
         return column;
