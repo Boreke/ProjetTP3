@@ -1,6 +1,6 @@
 package Game.pieces;
 
-public abstract class Position {
+public class Position {
     private int row;
 
     public int getRow() {
