@@ -8,57 +8,65 @@ public class Position {
     }
 
     public void setRow(int row) {
-        this.row = row;
+        if (0<=row&&row<=8)this.row = row;
     }
 
 
     private char column;
 
-    public void setColumnNumber(int columnNumber) {
+    private void setColumnNumber(int columnNumber) {
         this.columnNumber = columnNumber;
     }
 
     private int columnNumber;
 
+
     public char getColumn() {
         return column;
     }
-
+    private boolean checkValidColumn(char column){
+        char[] validColumn={'a','b','c','d','e','f','g','h'};
+        for (int i = 0; i < 8; i++) {
+            if (validColumn[i]==column) return true;
+        }
+        return false;
+    }
     public int getColumnNumber(){
         switch(this.column){
             case 'a':
-                setColumnNumber(1);
+                setColumnNumber(0);
                 return columnNumber;
             case 'b':
-                setColumnNumber(2);
+                setColumnNumber(1);
                 return columnNumber;
             case 'c':
-                setColumnNumber(3);
+                setColumnNumber(2);
                 return columnNumber;
             case 'd':
-                setColumnNumber(4);
+                setColumnNumber(3);
                 return columnNumber;
             case 'e':
-                setColumnNumber(5);
+                setColumnNumber(4);
                 return columnNumber;
             case 'f':
-                setColumnNumber(6);
+                setColumnNumber(5);
                 return columnNumber;
             case 'g':
-                setColumnNumber(7);
+                setColumnNumber(6);
                 return columnNumber;
             case 'h':
-                setColumnNumber(8);
+                setColumnNumber(7);
                 return columnNumber;
         }
+        return columnNumber;
     }
 
     public void setColumn(char column) {
-        this.column = column;
+        if(checkValidColumn(column)) this.column = column;
     }
 
     public boolean isValid(){
-        return (1 < this.getColumnNumber() < 9) && (1 < this.getRow() < 9);
+        return (0 <= this.getColumnNumber() && this.getColumnNumber()< 8) && (0 <= this.getRow()&& this.getRow() < 8);
     }
     @Override
     public String toString() {

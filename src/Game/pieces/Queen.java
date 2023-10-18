@@ -27,6 +27,7 @@ public class Queen {
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaRow=abs(newPosition.getRow()-this.position.getRow());
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
             return deltaRow==deltaColumn || this.position.getColumnNumber()==newPosition.getColumnNumber() || this.position.getRow()== newPosition.getRow();
         }
         return false;

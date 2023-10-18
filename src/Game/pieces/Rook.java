@@ -23,6 +23,7 @@ public class Rook {
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
             return newPosition.getRow() == this.position.getRow()  || this.position.getColumn() == newPosition.getColumn();
         }
         return false;

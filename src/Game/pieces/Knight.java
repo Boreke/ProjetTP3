@@ -27,6 +27,7 @@ public class Knight {
         if (newPosition.isValid()&&board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
             return (deltaColumn==3&&deltaRow==1)||(deltaRow==3&&deltaColumn==1);
         }
         return false;
