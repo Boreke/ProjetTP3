@@ -24,7 +24,7 @@ public class Bishop {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        if (newPosition.isValid() && board.isEmpty()){
+        if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaRow=abs(newPosition.getRow()-this.position.getRow());
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
             return deltaRow==deltaColumn;

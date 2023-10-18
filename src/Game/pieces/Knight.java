@@ -24,7 +24,7 @@ public class Knight {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        if (newPosition.isValid()&&board.isEmpty()){
+        if (newPosition.isValid()&&board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
             return (deltaColumn==3&&deltaRow==1)||(deltaRow==3&&deltaColumn==1);

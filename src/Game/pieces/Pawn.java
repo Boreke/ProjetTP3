@@ -22,7 +22,7 @@ public class Pawn {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
-        if (newPosition.isValid() && board.isEmpty()) {
+        if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
             int deltaPos;
             switch (this.color) {
                 case 0:

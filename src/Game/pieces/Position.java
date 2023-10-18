@@ -58,7 +58,7 @@ public class Position {
     }
 
     public boolean isValid(){
-        return 1 < this.getColumnNumber() < 9 && 1 < this.getRow() < 9;
+        return (1 < this.getColumnNumber() < 9) && (1 < this.getRow() < 9);
     }
     @Override
     public String toString() {
