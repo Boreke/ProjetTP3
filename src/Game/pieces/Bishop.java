@@ -27,7 +27,8 @@ public class Bishop {
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaRow=abs(newPosition.getRow()-this.position.getRow());
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
+            board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
             return deltaRow==deltaColumn;
         }
         return false;
@@ -39,5 +40,8 @@ public class Bishop {
     public Bishop(int c, Position startPos){
         setColor(c);
         setPosition(startPos);
+    }
+
+    public Bishop() {
     }
 }

@@ -25,15 +25,18 @@ public class Pawn {
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
+
             int deltaRow=abs(newPosition.getRow() - this.position.getRow());
             switch (this.color) {
                 case 0:
-                    if (deltaRow == 2 && this.position.getRow() == 2) {
+                    if (deltaRow == 2 && this.position.getRow() == 1 && board[this.position.getColumnNumber()][newPosition.getRow()-1].isEmpty()) {
+                        board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
+                        board[this.position.getColumnNumber()][this.position.getRow()].setContent(this.toString());
                         return true;
                     } else return deltaRow == 1;
                 case 1:
-                    if (deltaRow == 2 && this.position.getRow() == 6) {
+                    if (deltaRow == 2 && this.position.getRow() == 6 && board[this.position.getColumnNumber()][newPosition.getRow()+1].isEmpty()) {
+                        board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
                         return true;
                     } else return deltaRow == 1;
             }
@@ -47,5 +50,8 @@ public class Pawn {
     public Pawn(int c, Position startPos){
         setColor(c);
         setPosition(startPos);
+    }
+
+    public Pawn() {
     }
 }

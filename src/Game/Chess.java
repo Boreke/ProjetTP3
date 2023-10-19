@@ -1,7 +1,7 @@
 package Game;
 
-import Game.pieces.Cell;
-import Game.pieces.Position;
+import Game.pieces.*;
+
 
 import java.util.Scanner;
 
@@ -34,6 +34,16 @@ public class Chess {
         this.currentPlayer = currentPlayer;
     }
 
+    public Pawn[] whitePawns;
+    public Pawn[] blackPawns;
+    public Rook[] whiteRooks;
+    public Knight[] whiteKnights;
+    public Bishop[] whiteBishops;
+    public Rook[] blackRooks;
+    public Knight[] blackKnights;
+    public Bishop[] blackBishops;
+    public King[] kings;
+    public Queen[] queens;
     public void play(){
         while (true) {
             createPlayers();
@@ -78,12 +88,35 @@ public class Chess {
                 board[i][j]=new Cell(true,new Position(columnLetters[i],j));
             }
         }
+
+        for (int i = 0; i < 8; i++) {
+
+            whitePawns[i] = new Pawn(0,board[1][i].getPosition());
+            board[1][i].setContent(whitePawns[i].toString());
+        }
+
+
+        for (int i = 0; i < 8; i++) {
+            blackPawns[i] = new Pawn(0,board[6][i].getPosition());
+            board[6][i].setContent(blackPawns[i].toString());
+        }
+        whiteRooks = new Rook[]{new Rook(0, board[0][0].getPosition()), new Rook(0, board[0][7].getPosition())};
+        whiteBishops = new Bishop[]{new Bishop(0, board[0][2].getPosition()), new Bishop(0, board[0][5].getPosition())};
+        whiteKnights = new Knight[]{new Knight(0, board[0][1].getPosition()), new Knight(0, board[0][6].getPosition())};
+        blackRooks = new Rook[]{new Rook(1, board[7][0].getPosition()), new Rook(1, board[7][7].getPosition())};
+        blackBishops = new Bishop[]{new Bishop(1, board[7][2].getPosition()), new Bishop(1, board[7][5].getPosition())};
+        blackKnights = new Knight[]{new Knight(1, board[7][1].getPosition()), new Knight(1, board[7][6].getPosition())};
+        kings= new King[] {new King(0,board[0][5]),new King(1,board[7][5])};
+        queens= new Queen[]{new Queen(0,board[0][4]),new Queen(1,board[7][4])};
+
     }
     private void printBoard(){
 
     }
     private String askMove(){
-        return "bite";
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Entrez votre movement sous la forme  piece colonne ligne (Pe4)");
+        return sc.nextLine();
     }
     private boolean isCheckMate(){
         return false;

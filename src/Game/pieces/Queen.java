@@ -7,6 +7,9 @@ public class Queen {
         return position;
     }
 
+    public Queen() {
+    }
+
     public void setPosition(Position position) {
         this.position = position;
     }
@@ -27,7 +30,8 @@ public class Queen {
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaRow=abs(newPosition.getRow()-this.position.getRow());
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
+            board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
             return deltaRow==deltaColumn || this.position.getColumnNumber()==newPosition.getColumnNumber() || this.position.getRow()== newPosition.getRow();
         }
         return false;

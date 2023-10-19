@@ -10,7 +10,7 @@ public class Position {
     }
 
     public void setRow(int row) {
-        if (0<=row&&row<=8)this.row = row;
+        if (0<=row&&row<8)this.row = row;
     }
 
     private void setColumnNumber(int columnNumber) {

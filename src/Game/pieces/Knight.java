@@ -27,7 +27,8 @@ public class Knight {
         if (newPosition.isValid()&&board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setEmpty(false);
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
+            board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
             return (deltaColumn==3&&deltaRow==1)||(deltaRow==3&&deltaColumn==1);
         }
         return false;
@@ -39,5 +40,8 @@ public class Knight {
     public Knight(int c, Position startPos){
         setColor(c);
         setPosition(startPos);
+    }
+
+    public Knight() {
     }
 }
