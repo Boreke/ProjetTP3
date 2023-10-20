@@ -11,8 +11,7 @@ public class King extends Pieces {
         this.position = position;
     }
 
-    public King() {
-    }
+
 
     Position position;
     int color;
@@ -30,20 +29,19 @@ public class King extends Pieces {
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the king's possible moves in chess
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
-            super.getDeltaRow(newPosition.getRow());
-            super.getDeltaColumn(newPosition.getColumnNumber());
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
-            board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
+            int deltaColumn=abs((newPosition.getColumn()-97)-(this.position.getColumn()-97));
+            int deltaRow= abs(newPosition.getRow()-this.position.getRow());
+            board[newPosition.getColumn()-97][newPosition.getRow()].setContent(this);//changes the cell's content
+            board[this.position.getColumn()-97][this.position.getRow()].setContent(null);
             return (deltaRow<=1 || deltaColumn<=1);
         }
         return false;
     }
 
     public String toString(){
-        return "K";
+        return type;
     }
-    public King(int c, Position startPos){
-        setColor(c);
-        setPosition(startPos);
+    public King(int c, Position startPos,String type){
+        super(c,startPos,type);
     }
 }

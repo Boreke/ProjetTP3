@@ -1,6 +1,6 @@
 package Game.pieces;
 
-public class Rook {
+public class Rook extends Pieces {
     public Position getPosition() {
         return position;
     }
@@ -19,24 +19,22 @@ public class Rook {
         this.color = color;
     }
 
-    public Rook() {
-    }
+
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the rook's possible moves in chess
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
-            board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
+            board[newPosition.getColumn()-97][newPosition.getRow()].setContent(this);//changes the cell's content
+            board[this.position.getColumn()-97][this.position.getRow()].setContent(null);
             return newPosition.getRow() == this.position.getRow()  || this.position.getColumn() == newPosition.getColumn();
         }
         return false;
     }
 
     public String toString(){
-        return "R";
+        return type;
     }
-    public Rook(int c, Position startPos){
-        setColor(c);
-        setPosition(startPos);
+    public Rook(int c, Position startPos, String type){
+        super(c,startPos,type);
     }
 }

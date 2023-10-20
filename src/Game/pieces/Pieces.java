@@ -1,6 +1,6 @@
 package Game.pieces;
 
-public class Pieces {
+public abstract class Pieces {
     int color;
     Position position;
     String type;

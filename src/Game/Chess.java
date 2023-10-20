@@ -34,16 +34,9 @@ public class Chess {
         this.currentPlayer = currentPlayer;
     }
 
-    public Pawn[] whitePawns;
-    public Pawn[] blackPawns;
-    public Rook[] whiteRooks;
-    public Knight[] whiteKnights;
-    public Bishop[] whiteBishops;
-    public Rook[] blackRooks;
-    public Knight[] blackKnights;
-    public Bishop[] blackBishops;
-    public King[] kings;
-    public Queen[] queens;
+    public Pawn[] whitePawns=new Pawn[8];
+    public Pawn[] blackPawns=new Pawn[8];
+
     public void play(){
         while (true) {
             createPlayers();
@@ -82,10 +75,10 @@ public class Chess {
 
     }
     private void initialiseBoard(){
-        char[] columnLetters={'a','b','c','d','e','f','g','h'};
-        for (int i = 0; i < 8; i++) {
+        board= new Cell[8][8];
+        for (char i = 'a'; i < 'i'; i++) {
             for (int j = 0; j < 8; j++) {
-                board[i][j]=new Cell(true,new Position(columnLetters[i],j));
+                board[i][j]=new Cell(true,new Position(i,j));
             }
         }
 
@@ -100,28 +93,52 @@ public class Chess {
             blackPawns[i] = new Pawn(0,board[6][i].getPosition(),"P");
             board[6][i].setContent(blackPawns[i]);
         }
-        whiteRooks = new Rook[]{new Rook(0, board[0][0].getPosition()), new Rook(0, board[0][7].getPosition())};
-        whiteBishops = new Bishop[]{new Bishop(0, board[0][2].getPosition()), new Bishop(0, board[0][5].getPosition())};
-        whiteKnights = new Knight[]{new Knight(0, board[0][1].getPosition()), new Knight(0, board[0][6].getPosition())};
-        blackRooks = new Rook[]{new Rook(1, board[7][0].getPosition()), new Rook(1, board[7][7].getPosition())};
-        blackBishops = new Bishop[]{new Bishop(1, board[7][2].getPosition()), new Bishop(1, board[7][5].getPosition())};
-        blackKnights = new Knight[]{new Knight(1, board[7][1].getPosition()), new Knight(1, board[7][6].getPosition())};
-        kings= new King[] {new King(0,board[0][5].getPosition()),new King(1,board[7][5].getPosition())};
-        queens= new Queen[]{new Queen(0,board[0][4].getPosition()),new Queen(1,board[7][4].getPosition())};
+        board[0][0].setContent(new Rook(0,board[0][0].getPosition(),"R"));
+        board[0][1].setContent(new Knight(0,board[0][1].getPosition(),"N"));
+        board[0][2].setContent(new Bishop(0,board[0][2].getPosition(),"B"));
+        board[0][3].setContent(new Queen(0,board[0][3].getPosition(),"Q"));
+        board[0][4].setContent(new King(0,board[0][4].getPosition(),"K"));
+        board[0][5].setContent(new Knight(0,board[0][5].getPosition(),"B"));
+        board[0][6].setContent(new Bishop(0,board[0][6].getPosition(),"N"));
+        board[0][7].setContent(new Rook(0,board[0][7].getPosition(),"R"));
 
+        board[7][0].setContent(new Rook(1,board[7][0].getPosition(),"R"));
+        board[7][1].setContent(new Knight(1,board[7][1].getPosition(),"N"));
+        board[7][2].setContent(new Bishop(1,board[7][2].getPosition(),"B"));
+        board[7][3].setContent(new Queen(1,board[7][3].getPosition(),"Q"));
+        board[7][4].setContent(new King(1,board[7][4].getPosition(),"K"));
+        board[7][5].setContent(new Knight(1,board[7][5].getPosition(),"B"));
+        board[7][6].setContent(new Bishop(1,board[7][6].getPosition(),"N"));
+        board[7][7].setContent(new Rook(1,board[7][7].getPosition(),"R"));
     }
     private void printBoard(){
+        System.out.print("  a  b  c  d  e  f  g  h ");
+        for (int i = 0; i < 8; i++) {
+            System.out.print("\n");
+            System.out.print(i+1);
+            for (int j = 0; j < 8; j++) {
+                if (board[i][j].getContent()==null){
+                    System.out.print("[ ]");
+                }
+                else {
+                    System.out.print("[" + board[i][j].getContent().toString() + "]");
+                }
+            }
 
+        }
     }
     private String askMove(){
         Scanner sc=new Scanner(System.in);
-        System.out.println("Entrez votre movement sous la forme  piece colonne ligne (Pe4)");
+        System.out.println("Entrez votre movement sous la forme  piece colonne ligne (e.g:Pe2 Pe7)");
         return sc.nextLine();
     }
     private boolean isCheckMate(){
         return false;
     }
     private boolean isValidMove(String move){
+        String[] moves= move.split(" ");
+        int column=moves[0].charAt(1)-97;
+        int row = moves[0].charAt(2)-48;
         return false;
     }
     private void updateBoard(String move){

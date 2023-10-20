@@ -25,24 +25,22 @@ public class Knight extends Pieces{
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the knight's possible moves in chess
-        if (newPosition.isValid()&&board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
-            int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
+        if (newPosition.isValid()&&board[newPosition.getColumn()-97][newPosition.getRow()].isEmpty()){
+            int deltaColumn=abs((newPosition.getColumn()-97)-(this.position.getColumn()-97));
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
-            board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
+            board[newPosition.getColumn()-97][newPosition.getRow()].setContent(this);//changes the cell's content
+            board[this.position.getColumn()-97][this.position.getRow()].setContent(null);
             return (deltaColumn==3&&deltaRow==1)||(deltaRow==3&&deltaColumn==1);
         }
         return false;
     }
 
     public String toString(){
-        return "N";
+        return type;
     }
-    public Knight(int c, Position startPos){
-        setColor(c);
-        setPosition(startPos);
+    public Knight(int c, Position startPos, String type){
+        super(c,startPos,type);
     }
 
-    public Knight() {
-    }
+
 }

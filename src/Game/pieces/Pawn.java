@@ -25,28 +25,32 @@ public class Pawn extends Pieces{
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the pawn's possible moves in chess
-        if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
+        if (newPosition.isValid() ) {
 
-            int deltaRow=abs(newPosition.getRow() - this.position.getRow());
-            switch (this.color) {
-                case 0:
-                    if (deltaRow == 2 && this.position.getRow() == 1 && board[this.position.getColumnNumber()][newPosition.getRow()-1].isEmpty()) {
-                        board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
-                        board[this.position.getColumnNumber()][this.position.getRow()].setContent(this.toString());
-                        return true;
-                    } else return deltaRow == 1;
-                case 1:
-                    if (deltaRow == 2 && this.position.getRow() == 6 && board[this.position.getColumnNumber()][newPosition.getRow()+1].isEmpty()) {
-                        board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
-                        return true;
-                    } else return deltaRow == 1;
+            int deltaColumn=abs((newPosition.getColumn()-97)-(this.position.getColumn()-97));
+            int deltaRow= abs(newPosition.getRow()-this.position.getRow());
+            if (deltaColumn==0 && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
+                switch (this.color) {
+                    case 0:
+                        if (deltaRow == 2 && this.position.getRow() == 1
+                                && board[this.position.getColumnNumber()][newPosition.getRow() - 1].isEmpty()) {
+                            return true;
+                        } else return deltaRow == 1;
+                    case 1:
+                        if (deltaRow == 2 && this.position.getRow() == 6
+                                && board[this.position.getColumnNumber()][newPosition.getRow() + 1].isEmpty()) {
+                            return true;
+                        } else return deltaRow == 1;
+                }
+            } else if (abs(deltaColumn)==1 && !(board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty())){
+                return board[newPosition.getColumnNumber()][newPosition.getRow()].getContent().getColor()!=this.color;
             }
         }
         return false;
     }
 
     public String toString(){
-        return "P";
+        return type;
     }
     public Pawn(int c, Position startPos, String type){
         super(c,startPos,type);

@@ -7,8 +7,6 @@ public class Queen extends Pieces{
         return position;
     }
 
-    public Queen() {
-    }
 
     public void setPosition(Position position) {
         this.position = position;
@@ -28,21 +26,20 @@ public class Queen extends Pieces{
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the queen's possible moves in chess
-        if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
-            int deltaRow=abs(newPosition.getRow()-this.position.getRow());
-            int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
-            board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
-            return deltaRow==deltaColumn || this.position.getColumnNumber()==newPosition.getColumnNumber() || this.position.getRow()== newPosition.getRow();
+        if (newPosition.isValid()){
+            int deltaColumn = abs((newPosition.getColumn() - 97) - (this.position.getColumn() - 97));
+            int deltaRow = abs(newPosition.getRow() - this.position.getRow());
+            if (board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
+
+            }return deltaRow==deltaColumn || this.position.getColumnNumber()==newPosition.getColumnNumber() || this.position.getRow()== newPosition.getRow();
         }
         return false;
     }
 
     public String toString(){
-        return "Q";
+        return type;
     }
-    public Queen(int c, Position startPos){
-        setColor(c);
-        setPosition(startPos);
+    public Queen(int c, Position startPos,String type){
+        super(c,startPos,type);
     }
 }
