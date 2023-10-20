@@ -23,8 +23,9 @@ public class Rook {
     }
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        //is the move valid according to the rook's possible moves in chess
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
             board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
             return newPosition.getRow() == this.position.getRow()  || this.position.getColumn() == newPosition.getColumn();
         }

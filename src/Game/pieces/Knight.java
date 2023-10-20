@@ -24,10 +24,11 @@ public class Knight {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        //is the move valid according to the knight's possible moves in chess
         if (newPosition.isValid()&&board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
             int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
-            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
+            board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
             board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
             return (deltaColumn==3&&deltaRow==1)||(deltaRow==3&&deltaColumn==1);
         }

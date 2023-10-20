@@ -24,13 +24,14 @@ public class Pawn {
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
+        //is the move valid according to the pawn's possible moves in chess
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
 
             int deltaRow=abs(newPosition.getRow() - this.position.getRow());
             switch (this.color) {
                 case 0:
                     if (deltaRow == 2 && this.position.getRow() == 1 && board[this.position.getColumnNumber()][newPosition.getRow()-1].isEmpty()) {
-                        board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());
+                        board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
                         board[this.position.getColumnNumber()][this.position.getRow()].setContent(this.toString());
                         return true;
                     } else return deltaRow == 1;
