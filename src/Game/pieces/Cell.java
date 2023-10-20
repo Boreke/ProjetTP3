@@ -3,7 +3,7 @@ import Game.Chess;
 public class Cell extends Position {
 
     public boolean isEmpty() {
-        isEmpty = (this.getContent() == null);
+
         return isEmpty;
     }
 
@@ -16,15 +16,16 @@ public class Cell extends Position {
     private boolean isEmpty;
     private final Position position;
 
-    public String getContent() {
+    public Pieces getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(Pieces content) {
         this.content = content;
+        this.isEmpty = (this.getContent() == null);
     }
 
-    private String content = null;
+    private Pieces content=null;
 
     public Position getPosition() {
         return position;

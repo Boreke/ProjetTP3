@@ -2,7 +2,7 @@ package Game.pieces;
 
 import static java.lang.Math.abs;
 
-public class Queen {
+public class Queen extends Pieces{
     public Position getPosition() {
         return position;
     }

@@ -2,7 +2,7 @@ package Game.pieces;
 
 import static java.lang.Math.abs;
 
-public class Pawn {
+public class Pawn extends Pieces{
     int color;
     Position position = new Position();
     public Position getPosition() {
@@ -48,11 +48,8 @@ public class Pawn {
     public String toString(){
         return "P";
     }
-    public Pawn(int c, Position startPos){
-        setColor(c);
-        setPosition(startPos);
+    public Pawn(int c, Position startPos, String type){
+        super(c,startPos,type);
     }
 
-    public Pawn() {
-    }
 }

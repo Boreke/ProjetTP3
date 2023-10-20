@@ -91,14 +91,14 @@ public class Chess {
 
         for (int i = 0; i < 8; i++) {
 
-            whitePawns[i] = new Pawn(0,board[1][i].getPosition());
-            board[1][i].setContent(whitePawns[i].toString());
+            whitePawns[i] = new Pawn(0,board[1][i].getPosition(),"P");
+            board[1][i].setContent(whitePawns[i]);
         }
 
 
         for (int i = 0; i < 8; i++) {
-            blackPawns[i] = new Pawn(0,board[6][i].getPosition());
-            board[6][i].setContent(blackPawns[i].toString());
+            blackPawns[i] = new Pawn(0,board[6][i].getPosition(),"P");
+            board[6][i].setContent(blackPawns[i]);
         }
         whiteRooks = new Rook[]{new Rook(0, board[0][0].getPosition()), new Rook(0, board[0][7].getPosition())};
         whiteBishops = new Bishop[]{new Bishop(0, board[0][2].getPosition()), new Bishop(0, board[0][5].getPosition())};
@@ -106,8 +106,8 @@ public class Chess {
         blackRooks = new Rook[]{new Rook(1, board[7][0].getPosition()), new Rook(1, board[7][7].getPosition())};
         blackBishops = new Bishop[]{new Bishop(1, board[7][2].getPosition()), new Bishop(1, board[7][5].getPosition())};
         blackKnights = new Knight[]{new Knight(1, board[7][1].getPosition()), new Knight(1, board[7][6].getPosition())};
-        kings= new King[] {new King(0,board[0][5]),new King(1,board[7][5])};
-        queens= new Queen[]{new Queen(0,board[0][4]),new Queen(1,board[7][4])};
+        kings= new King[] {new King(0,board[0][5].getPosition()),new King(1,board[7][5].getPosition())};
+        queens= new Queen[]{new Queen(0,board[0][4].getPosition()),new Queen(1,board[7][4].getPosition())};
 
     }
     private void printBoard(){

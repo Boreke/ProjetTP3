@@ -2,7 +2,7 @@ package Game.pieces;
 
 import static java.lang.Math.abs;
 
-public class King {
+public class King extends Pieces {
     public Position getPosition() {
         return position;
     }
@@ -16,6 +16,7 @@ public class King {
 
     Position position;
     int color;
+
     public int getColor() {
         return color;
     }
@@ -29,8 +30,8 @@ public class King {
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the king's possible moves in chess
         if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
-            int deltaRow=abs(newPosition.getRow()-this.position.getRow());
-            int deltaColumn=abs(newPosition.getColumnNumber()-this.position.getColumnNumber());
+            super.getDeltaRow(newPosition.getRow());
+            super.getDeltaColumn(newPosition.getColumnNumber());
             board[newPosition.getColumnNumber()][newPosition.getRow()].setContent(this.toString());//changes the cell's content
             board[this.position.getColumnNumber()][this.position.getRow()].setContent(null);
             return (deltaRow<=1 || deltaColumn<=1);
