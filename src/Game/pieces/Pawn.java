@@ -26,25 +26,41 @@ public class Pawn extends Pieces{
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the pawn's possible moves in chess
         if (newPosition.isValid() ) {
-
-            int deltaColumn=abs((newPosition.getColumn()-97)-(this.position.getColumn()-97));
-            int deltaRow= abs(newPosition.getRow()-this.position.getRow());
-            if (deltaColumn==0 && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()) {
-                switch (this.color) {
-                    case 0:
-                        if (deltaRow == 2 && this.position.getRow() == 1
-                                && board[this.position.getColumnNumber()][newPosition.getRow() - 1].isEmpty()) {
-                            return true;
-                        } else return deltaRow == 1;
-                    case 1:
-                        if (deltaRow == 2 && this.position.getRow() == 6
-                                && board[this.position.getColumnNumber()][newPosition.getRow() + 1].isEmpty()) {
-                            return true;
-                        } else return deltaRow == 1;
+            int deltaX = abs(newPosition.getRow() - this.position.getRow());
+            int deltaY = abs(newPosition.getColumn() - this.position.getColumn());
+            if(board[newPosition.getRow()][newPosition.getColumn()].isEmpty()) {
+                if (this.position.getRow() == newPosition.getRow() && this.position.getColumn() == newPosition.getColumn()) {
+                    return false;
                 }
-            } else if (abs(deltaColumn)==1 && !(board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty())){
-                return board[newPosition.getColumnNumber()][newPosition.getRow()].getContent().getColor()!=this.color;
+
+                // Vérifier les déplacements valides
+                if ((this.position.getRow() == 1 && this.getColor() == 0) || (this.position.getRow() == 6 && this.getColor() == 1)) {
+                    // Première avance d'un pion : peut avancer de 1 ou 2 cases
+                    if (deltaY == 1 || deltaY == 2) {
+                        int minX = Math.min(this.position.getRow(), newPosition.getRow());
+                        int maxX = Math.max(this.position.getRow(), newPosition.getRow());
+                        for (int x = minX + 1; x < maxX; x++) {
+                            if (!board[this.position.getColumn() - 97][x].isEmpty()) {
+                                return false;
+                            }
+                        }
+                        return (this.position.getRow() == newPosition.getRow()) && (this.position.getColumn() < newPosition.getColumn());
+                    }
+                } else {
+                    // Avance normale d'un pion : peut avancer d'une seule case
+                    if (deltaY == 1) {
+                        return (this.position.getRow() == newPosition.getRow()) && (this.position.getColumn() < newPosition.getColumn());
+                    }
+                }
             }
+            // Vérifier les captures diagonales
+            if (deltaY == 1 && deltaX == 1) {
+                return (this.position.getColumn() < newPosition.getColumn())&&
+                        board[newPosition.getRow()][newPosition.getColumn()].getContent().getColor()!=this.getColor();
+            }
+
+            // Si le mouvement ne satisfait pas les conditions ci-dessus, il est invalide
+            return false;
         }
         return false;
     }

@@ -25,12 +25,15 @@ public class Knight extends Pieces{
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the knight's possible moves in chess
-        if (newPosition.isValid()&&board[newPosition.getColumn()-97][newPosition.getRow()].isEmpty()){
+        if (newPosition.isValid()){
             int deltaColumn=abs((newPosition.getColumn()-97)-(this.position.getColumn()-97));
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
-            board[newPosition.getColumn()-97][newPosition.getRow()].setContent(this);//changes the cell's content
-            board[this.position.getColumn()-97][this.position.getRow()].setContent(null);
-            return (deltaColumn==3&&deltaRow==1)||(deltaRow==3&&deltaColumn==1);
+            if (board[newPosition.getColumn()-97][newPosition.getRow()].isEmpty()) {
+                return (deltaColumn == 2 && deltaRow == 1) || (deltaRow == 2 && deltaColumn == 1);
+            } else {
+                return ((deltaColumn == 2 && deltaRow == 1) || (deltaRow == 2 && deltaColumn == 1)) &&
+                       board[newPosition.getColumn()-97][newPosition.getRow()].getContent().getColor()!=this.getColor();
+            }
         }
         return false;
     }

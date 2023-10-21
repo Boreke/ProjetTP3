@@ -25,25 +25,23 @@ public class Bishop extends Pieces{
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the bishop's possible moves in chess
-        int deltaColumn = (newPosition.getColumn() - 97) - (this.position.getColumn() - 97);
-        int deltaRow = newPosition.getRow() - this.position.getRow();
-        if (newPosition.isValid() &&abs(deltaColumn) == abs(deltaRow)) {
-            if (board[newPosition.getColumn() - 97][newPosition.getRow()].isEmpty()) {
-                if (deltaColumn < 0) {
-                    for (int i = 0; i != deltaRow; i--) {
-                        if (!(board[newPosition.getColumn() - 97 + i][newPosition.getRow() + i].isEmpty())) {
-                            return false;
-                        }
-                    }
-                } else {
-                    for (int i = 0; i != deltaRow; i++) {
-                        if (!(board[newPosition.getColumn() - 97 - i][newPosition.getRow() - i].isEmpty())) {
-                            return false;
-                        }
+        if (newPosition.isValid()) {
+            int minX = Math.min(this.position.getRow(), newPosition.getRow());
+            int minY = Math.min(this.position.getColumn(), newPosition.getColumn());
+            int maxX = Math.max(this.position.getRow(), newPosition.getRow());
+            int maxY = Math.max(this.position.getColumn(), newPosition.getColumn());
+            int deltaX = abs(newPosition.getRow() - this.position.getRow());
+            int deltaY = abs(newPosition.getColumn() - this.position.getColumn());
+            if (deltaX == deltaY) {
+                // Vérifier qu'il n'y a pas d'autres pièces sur le chemin
+                for (int x = minX + 1, y = minY + 1; x < maxX; x++, y++) {
+                    if (!board[x][y].isEmpty()) {
+                        return false;
                     }
                 }
+                return true;
             }
-            return board[newPosition.getColumnNumber()][newPosition.getRow()].getContent().getColor()!=this.getColor();
+            return false;
         }
         return false;
     }

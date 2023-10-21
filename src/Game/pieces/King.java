@@ -28,12 +28,10 @@ public class King extends Pieces {
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the king's possible moves in chess
-        if (newPosition.isValid() && board[newPosition.getColumnNumber()][newPosition.getRow()].isEmpty()){
-            int deltaColumn=abs((newPosition.getColumn()-97)-(this.position.getColumn()-97));
+        if (newPosition.isValid() && board[newPosition.getColumn()-97][newPosition.getRow()].isEmpty()){
+            int deltaColumn=abs((newPosition.getColumn())-(this.position.getColumn()));
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
-            board[newPosition.getColumn()-97][newPosition.getRow()].setContent(this);//changes the cell's content
-            board[this.position.getColumn()-97][this.position.getRow()].setContent(null);
-            return (deltaRow<=1 || deltaColumn<=1);
+            return (deltaRow<=1 && deltaColumn<=1);
         }
         return false;
     }
