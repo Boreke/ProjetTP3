@@ -30,7 +30,7 @@ public class Rook extends Pieces {
             int minY = Math.min(this.position.getColumn(), newPosition.getColumn());
             int maxY = Math.max(this.position.getColumn(), newPosition.getColumn());
             for (int y= minY + 1; y < maxY; y++) {
-                if (!board[this.position.getRow()][y-'a'].isEmpty()) {
+                if (!board[this.position.getRow()][y].isEmpty()) {
                     return false;
                 }
             }

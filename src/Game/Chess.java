@@ -40,18 +40,16 @@ public class Chess {
     }
     private void initialiseBoard(){
         board= new Cell[8][8];
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 7; i >=0; i--) {
+            for (int j = 7; j >=0; j--) {
                 board[i][j]=new Cell(true,new Position((char) (j+'a'),i));
             }
         }
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 7; i >= 0; i--) {
             board[1][i].setContent(new Pawn(0,board[1][i].getPosition(),"P"));
         }
-
-
-        for (int i = 0; i < 8; i++) {
+        for (int i = 7; i >=0; i--) {
             board[6][i].setContent(new Pawn(1,board[6][i].getPosition(),"P"));
         }
         board[0][0].setContent(new Rook(0,board[0][0].getPosition(),"R"));
@@ -73,27 +71,36 @@ public class Chess {
         board[7][7].setContent(new Rook(1,board[7][7].getPosition(),"R"));
     }
     private void printBoard(){
-        System.out.print("  a  b  c  d  e  f  g  h ");
-        for (int i = 0; i < 8; i++) {
+
+        for (int i = 7; i>=0; i--) {
             System.out.print("\n");
             System.out.print(i+1);
-            for (int j = 0; j < 8; j++) {
-                if ((i + j) % 2 == 0) {
+            for (int j = 0; j<8; j++) {
+                if (((i + j) % 2 == 0)){
                     if (board[i][j].getContent() == null) {
-                        System.out.print("\033[40;30m" + "   "+"\033[m");
+                        System.out.print("\033[40m" + "   "+"\033[m");
                     } else {
-                        System.out.print("\033[40;30m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                        if (board[i][j].getContent().getColor()==0) {
+                            System.out.print("\033[40;31m"+" "+ board[i][j].getContent().toString()+" "+"\033[m");
+                        }else{
+                            System.out.print("\033[40;34m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                        }
                     }
                 } else{
                     if (board[i][j].getContent() == null) {
                         System.out.print("\033[47m" + "   "+"\033[m");
                     } else {
-                        System.out.print("\033[47m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                        if (board[i][j].getContent().getColor()==0) {
+                            System.out.print("\033[47;31m"+" "+ board[i][j].getContent().toString()+" "+"\033[m");
+                        }else{
+                            System.out.print("\033[47;34m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                        }
                     }
                 }
             }
-        }
-        System.out.print("\n");
+        }System.out.print("\n");
+        System.out.println("  a  b  c  d  e  f  g  h ");
+
     }
     private String askMove() {
         Scanner sc = new Scanner(System.in);
@@ -112,11 +119,11 @@ public class Chess {
     private boolean isValidMove(String m){
         String[] moves= m.split(" ");
         int column=moves[0].charAt(1)-'a';
-        int newColumn=moves[1].charAt(1)-'a';
         int row = Character.getNumericValue(moves[0].charAt(2))-1;
         int newRow=Character.getNumericValue(moves[1].charAt(2))-1;
-        if (moves[0].charAt(0) == board[row][column].getContent().toString().charAt(0)) {
-            if (!(new Position(moves[1].charAt(1), newRow).isValid()) || board[row][column].getContent() == null ||
+        if (board[row][column].getContent()
+                != null &&moves[0].charAt(0) == board[row][column].getContent().toString().charAt(0)) {
+            if (!(new Position(moves[1].charAt(1), newRow).isValid()) ||
                     board[row][column].getContent().getColor() != currentPlayer.getColor()) {
                 System.out.println("invalid move, please enter a valid move");
                 return false;
