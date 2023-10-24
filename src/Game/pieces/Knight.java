@@ -3,21 +3,6 @@ package Game.pieces;
 import static java.lang.Math.abs;
 
 public class Knight extends Pieces{
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position newPos) {
-        this.position = newPos;
-    }
-
-    Position position;
-    int color;
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
 
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {

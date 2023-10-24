@@ -10,33 +10,6 @@ public class Chess {
     private Player[] players= new Player[2];
     private Player currentPlayer;
 
-    public Cell[][] getBoard() {
-        return board;
-    }
-
-    public void setBoard(Cell[][] board) {
-        this.board = board;
-    }
-
-    public Player[] getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(Player[] players) {
-        this.players = players;
-    }
-
-    public Player getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public Pawn[] whitePawns=new Pawn[8];
-    public Pawn[] blackPawns=new Pawn[8];
-
     public void play(){
         while (true) {
             createPlayers();
@@ -74,15 +47,12 @@ public class Chess {
         }
 
         for (int i = 0; i < 8; i++) {
-
-            whitePawns[i] = new Pawn(0,board[1][i].getPosition(),"P");
-            board[1][i].setContent(whitePawns[i]);
+            board[1][i].setContent(new Pawn(0,board[1][i].getPosition(),"P"));
         }
 
 
         for (int i = 0; i < 8; i++) {
-            blackPawns[i] = new Pawn(0,board[6][i].getPosition(),"P");
-            board[6][i].setContent(blackPawns[i]);
+            board[6][i].setContent(new Pawn(1,board[6][i].getPosition(),"P"));
         }
         board[0][0].setContent(new Rook(0,board[0][0].getPosition(),"R"));
         board[0][1].setContent(new Knight(0,board[0][1].getPosition(),"N"));
@@ -98,8 +68,8 @@ public class Chess {
         board[7][2].setContent(new Bishop(1,board[7][2].getPosition(),"B"));
         board[7][3].setContent(new Queen(1,board[7][3].getPosition(),"Q"));
         board[7][4].setContent(new King(1,board[7][4].getPosition(),"K"));
-        board[7][5].setContent(new Knight(1,board[7][5].getPosition(),"B"));
-        board[7][6].setContent(new Bishop(1,board[7][6].getPosition(),"N"));
+        board[7][5].setContent(new Bishop(1,board[7][5].getPosition(),"B"));
+        board[7][6].setContent(new Knight(1,board[7][6].getPosition(),"N"));
         board[7][7].setContent(new Rook(1,board[7][7].getPosition(),"R"));
     }
     private void printBoard(){
@@ -108,14 +78,20 @@ public class Chess {
             System.out.print("\n");
             System.out.print(i+1);
             for (int j = 0; j < 8; j++) {
-                if (board[i][j].getContent()==null){
-                    System.out.print("[ ]");
-                }
-                else {
-                    System.out.print("[" + board[i][j].getContent().toString() + "]");
+                if ((i + j) % 2 == 0) {
+                    if (board[i][j].getContent() == null) {
+                        System.out.print("\033[40;30m" + "   "+"\033[m");
+                    } else {
+                        System.out.print("\033[40;30m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                    }
+                } else{
+                    if (board[i][j].getContent() == null) {
+                        System.out.print("\033[47m" + "   "+"\033[m");
+                    } else {
+                        System.out.print("\033[47m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                    }
                 }
             }
-
         }
         System.out.print("\n");
     }
@@ -123,8 +99,10 @@ public class Chess {
         Scanner sc = new Scanner(System.in);
         String scan;
         do {
-            System.out.println("Entrez votre movement sous la forme  piece colonne ligne (e.g:Pe2 Pe7)");
+            System.out.println(currentPlayer.getName()+
+                    ", entrez votre movement sous la forme  piece colonne ligne (e.g:Pe2 Pe7)");
             scan = sc.nextLine();
+            if(scan.length()!=7) System.out.println("le format du mouvement est incorrect, réessayez");
         } while (scan.length()!=7);
         return scan;
     }
@@ -137,15 +115,20 @@ public class Chess {
         int newColumn=moves[1].charAt(1)-'a';
         int row = Character.getNumericValue(moves[0].charAt(2))-1;
         int newRow=Character.getNumericValue(moves[1].charAt(2))-1;
-        if (!(new Position(moves[1].charAt(1), newRow).isValid()) || board[row][column].getContent()==null||
-                board[row][column].getContent().getColor()!=currentPlayer.getColor()) {
-            System.out.println("invalid move, please enter a valid move");
-            return false;
-        }
-        else {
-            if (board[row][column].getContent().isValidMove(new Position(moves[1].charAt(1), newRow), board)){
-                return true;
+        if (moves[0].charAt(0) == board[row][column].getContent().toString().charAt(0)) {
+            if (!(new Position(moves[1].charAt(1), newRow).isValid()) || board[row][column].getContent() == null ||
+                    board[row][column].getContent().getColor() != currentPlayer.getColor()) {
+                System.out.println("invalid move, please enter a valid move");
+                return false;
+            } else {
+                if (board[row][column].getContent().isValidMove(new Position(moves[1].charAt(1), newRow), board)) {
+                    return true;
+                }
+                System.out.println("Cette piece ne peut pas bouger ainsi.");
+                return false;
             }
+        }else{
+            System.out.println("Il n'y a pas de pieces sur cette case");
             return false;
         }
     }
@@ -160,9 +143,7 @@ public class Chess {
         Pieces pieceToMove = board[row][column].getContent();
         board[row][column].setContent(null);
         board[newRow][newColumn].setContent(pieceToMove);
-
-
-
+        board[newRow][newColumn].getContent().setPosition(board[newRow][newColumn].getPosition());
     }
     private void switchPlayer(){
         if (currentPlayer.getColor()==1){

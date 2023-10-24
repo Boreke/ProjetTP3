@@ -3,26 +3,6 @@ package Game.pieces;
 import static java.lang.Math.abs;
 
 public class Queen extends Pieces{
-    public Position getPosition() {
-        return position;
-    }
-
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    Position position;
-    int color;
-    public int getColor() {
-        return color;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the queen's possible moves in chess
