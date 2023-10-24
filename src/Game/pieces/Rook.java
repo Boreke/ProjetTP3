@@ -9,7 +9,7 @@ public class Rook extends Pieces {
         this.position = position;
     }
 
-    Position position= new Position();
+    Position position;
     int color;
     public int getColor() {
         return color;
@@ -33,11 +33,14 @@ public class Rook extends Pieces {
             int minY = Math.min(this.position.getColumn(), newPosition.getColumn());
             int maxY = Math.max(this.position.getColumn(), newPosition.getColumn());
             for (int i = minY + 1; i < maxY; i++) {
-                if (!board[i][this.position.getRow()].isEmpty()) {
+                if (!board[this.position.getRow()][i].isEmpty()) {
                     return false;
                 }
             }
-            return true;
+            if (!board[this.position.getRow()][newPosition.getColumn()-'a']. isEmpty()
+                    && board[this.position.getRow()][newPosition.getColumn()-'a'].getContent().getColor()!=this.getColor()){
+                return true;
+            } else return board[this.position.getRow()][newPosition.getColumn()-'a'].isEmpty();
         }
 
         // Vérifier si le mouvement est horizontal (même ligne)
@@ -46,14 +49,15 @@ public class Rook extends Pieces {
             int minX = Math.min(this.position.getRow(), newPosition.getRow());
             int maxX = Math.max(this.position.getRow(), newPosition.getRow());
             for (int x = minX + 1; x < maxX; x++) {
-                if (!board[this.position.getColumn()-97][x].isEmpty()) {
+                if (!board[x][this.position.getColumn() - 97].isEmpty()) {
                     return false;
                 }
             }
-            return true;
+            if (!board[this.position.getRow()][newPosition.getColumn()-'a'].isEmpty()
+                    && board[this.position.getRow()][newPosition.getColumn()-'a'].getContent().getColor() != this.getColor()) {
+                return true;
+            } else return board[this.position.getRow()][newPosition.getColumn()-'a'].isEmpty();
         }
-
-        // Si le mouvement n'est ni vertical ni horizontal, il est invalide
         return false;
     }
 

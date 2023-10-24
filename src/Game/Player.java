@@ -7,7 +7,7 @@ public class Player {
     public String getName(){
         return this.name;
     }
-    public int getColor(){
+    public  int getColor(){
         return this.color;
     }
     public void setName(String n){

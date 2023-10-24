@@ -12,7 +12,7 @@ public class Queen extends Pieces{
         this.position = position;
     }
 
-    Position position= new Position();
+    Position position;
     int color;
     public int getColor() {
         return color;
@@ -40,13 +40,23 @@ public class Queen extends Pieces{
             if (this.position.getRow() == newPosition.getRow() || this.position.getColumn() == newPosition.getColumn()) {
                 // Vérifier qu'il n'y a pas d'autres pièces sur le chemin
                 if (this.position.getRow() == newPosition.getRow()) {
-                    for (int x = minX + 1; x < maxX; x++) {
-                        if (!board[this.position.getColumn()-97][x].isEmpty()) {
+                    for (int y = minY + 1; y < maxY; y++) {
+                        if (!board[this.position.getRow()][y].isEmpty()) {
                             return false;
                         }
                     }
-                    return true;
                 }
+                if (this.position.getColumn() == newPosition.getColumn()) {
+                    for (int x = minX + 1; x < maxX; x++) {
+                        if (!board[x][this.position.getColumn()-'a'].isEmpty()) {
+                            return false;
+                        }
+                    }
+                }
+                if (!board[newPosition.getRow()][newPosition.getColumn()]. isEmpty()
+                        && board[newPosition.getRow()][newPosition.getColumn()].getContent().getColor()==this.getColor()){
+                    return true;
+                } else return board[this.position.getRow()][newPosition.getColumn()].isEmpty();
             }
 
             // Vérifier le mouvement en diagonale
@@ -57,10 +67,13 @@ public class Queen extends Pieces{
                         return false;
                     }
                 }
-                return true;
+                if (!board[newPosition.getRow()][newPosition.getColumn()]. isEmpty()
+                     && board[newPosition.getRow()][newPosition.getColumn()].getContent().getColor()==this.getColor()){
+                    return true;
+                } else return board[this.position.getRow()][newPosition.getColumn()].isEmpty();
             }
 
-            // Si le mouvement n'est ni horizontal, vertical, ni diagonal, il est invalide
+
             return false;
         }
         return false;

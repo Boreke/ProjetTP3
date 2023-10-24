@@ -15,7 +15,7 @@ public class Position {
 
 
     public char getColumn() {
-        return column;
+        return this.column;
     }
     private boolean checkValidColumn(char column){
         char[] validColumn={'a','b','c','d','e','f','g','h'};
@@ -27,7 +27,8 @@ public class Position {
 
 
     public void setColumn(char column) {
-        if(checkValidColumn(column)) this.column = column;
+        //if(checkValidColumn(column)) {this.column = column;}
+        this.column = column;
     }
 
     public boolean isValid(){
@@ -35,7 +36,7 @@ public class Position {
     }
     @Override
     public String toString() {
-        return "game.pieces.Position{" + column + row + "}";
+        return "game.pieces.Position{" + column + (row+1) + "}";
     }
 
     public Position() {

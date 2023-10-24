@@ -28,7 +28,7 @@ public class King extends Pieces {
 
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the king's possible moves in chess
-        if (newPosition.isValid() && board[newPosition.getColumn()-97][newPosition.getRow()].isEmpty()){
+        if (newPosition.isValid() && board[newPosition.getRow()][newPosition.getColumn()-'a'].isEmpty()){
             int deltaColumn=abs((newPosition.getColumn())-(this.position.getColumn()));
             int deltaRow= abs(newPosition.getRow()-this.position.getRow());
             return (deltaRow<=1 && deltaColumn<=1);

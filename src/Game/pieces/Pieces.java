@@ -31,7 +31,10 @@ public abstract class Pieces {
 
     public Pieces(int color, Position position, String type) {
         this.color = color;
-        this.position = position;
+        setPosition(position);
         this.type = type;
     }
+
+
+    public abstract boolean isValidMove(Position position, Cell[][] board);
 }

@@ -4,7 +4,7 @@ import static java.lang.Math.abs;
 
 public class Pawn extends Pieces{
     int color;
-    Position position = new Position();
+    Position position;
     public Position getPosition() {
         return position;
     }
@@ -28,7 +28,7 @@ public class Pawn extends Pieces{
         if (newPosition.isValid() ) {
             int deltaX = abs(newPosition.getRow() - this.position.getRow());
             int deltaY = abs(newPosition.getColumn() - this.position.getColumn());
-            if(board[newPosition.getRow()][newPosition.getColumn()].isEmpty()) {
+            if(board[newPosition.getRow()][newPosition.getColumn()-'a'].isEmpty()) {
                 if (this.position.getRow() == newPosition.getRow() && this.position.getColumn() == newPosition.getColumn()) {
                     return false;
                 }
@@ -40,7 +40,7 @@ public class Pawn extends Pieces{
                         int minX = Math.min(this.position.getRow(), newPosition.getRow());
                         int maxX = Math.max(this.position.getRow(), newPosition.getRow());
                         for (int x = minX + 1; x < maxX; x++) {
-                            if (!board[this.position.getColumn() - 97][x].isEmpty()) {
+                            if (!board[x][this.position.getColumn()-'a'].isEmpty()) {
                                 return false;
                             }
                         }
@@ -59,7 +59,6 @@ public class Pawn extends Pieces{
                         board[newPosition.getRow()][newPosition.getColumn()].getContent().getColor()!=this.getColor();
             }
 
-            // Si le mouvement ne satisfait pas les conditions ci-dessus, il est invalide
             return false;
         }
         return false;
