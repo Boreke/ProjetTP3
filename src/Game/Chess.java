@@ -106,6 +106,38 @@ public class Chess {
         } while (scan.length()!=7);
         return scan;
     }
+
+    private Boolean isCheck(){
+        // Trouver la position du roi du joueur
+        int kingX = -1;
+        int kingY = -1;
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (board[x][y].getContent() instanceof King &&
+                        board[x][y].getContent().getColor() == currentPlayer.getColor()) {
+                    kingX = x;
+                    kingY = y;
+                    break;
+                }
+            }
+        }
+
+        // Vérifier si le roi est menacé par une pièce adverse
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (board[x][y].getContent() != null &&
+                        board[x][y].getContent().getColor() != currentPlayer.getColor()) {
+                    if (board[x][y].getContent().isValidMove(board[kingX][kingY].getPosition(),board)) {
+                        // Le roi est menacé
+                        return true;
+                    }
+                }
+            }
+        }
+        // Le roi n'est pas menacé
+        return false;
+    }
+
     private boolean isCheckMate(){
         return false;
     }
