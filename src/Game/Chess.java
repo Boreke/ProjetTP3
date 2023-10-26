@@ -81,9 +81,12 @@ public class Chess {
                         System.out.print("\033[40m" + "   "+"\033[m");
                     } else {
                         if (board[i][j].getContent().getColor()==0) {
-                            System.out.print("\033[40;31m"+" "+ board[i][j].getContent().toString()+" "+"\033[m");
+                            System.out.print("\033[40;97m"+" "+
+                                    "\033[1;97m"+ board[i][j].getContent().toString()+" "+"\033[m");
                         }else{
-                            System.out.print("\033[40;34m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                            System.out.print("\033[40;90m" + " "
+                                    +"\033[1;90m"+board[i][j].getContent()
+                                    .toString() + " "+"\033[m");
                         }
                     }
                 } else{
@@ -91,9 +94,11 @@ public class Chess {
                         System.out.print("\033[47m" + "   "+"\033[m");
                     } else {
                         if (board[i][j].getContent().getColor()==0) {
-                            System.out.print("\033[47;31m"+" "+ board[i][j].getContent().toString()+" "+"\033[m");
+                            System.out.print("\033[47;97m"+" "
+                                    +"\033[1;97m"+ board[i][j].getContent().toString()+" "+"\033[m");
                         }else{
-                            System.out.print("\033[47;34m" + " " + board[i][j].getContent().toString() + " "+"\033[m");
+                            System.out.print("\033[47;90m" + " "
+                                    +"\033[1;90m"+ board[i][j].getContent().toString()+ " "+"\033[m");
                         }
                     }
                 }
@@ -116,6 +121,37 @@ public class Chess {
     private boolean isCheckMate(){
         return false;
     }
+    private Boolean isCheck(){
+        // Trouver la position du roi du joueur
+        int kingX = -1;
+        int kingY = -1;
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (board[x][y].getContent() instanceof King &&
+                        board[x][y].getContent().getColor() == currentPlayer.getColor()) {
+                    kingX = x;
+                    kingY = y;
+                    break;
+                }
+            }
+        }
+
+        // Vérifier si le roi est menacé par une pièce adverse
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (board[x][y].getContent() != null &&
+                        board[x][y].getContent().getColor() != currentPlayer.getColor()) {
+                    if (board[x][y].getContent().isValidMove(board[kingX][kingY].getPosition(),board)) {
+                        // Le roi est menacé
+                        return true;
+                    }
+                }
+            }
+        }
+        // Le roi n'est pas menacé
+        return false;
+    }
+
     private boolean isValidMove(String m){
         String[] moves= m.split(" ");
         int column=moves[0].charAt(1)-'a';
@@ -129,6 +165,10 @@ public class Chess {
                 return false;
             } else {
                 if (board[row][column].getContent().isValidMove(new Position(moves[1].charAt(1), newRow), board)) {
+                    if (isCheck()){
+                        System.out.println("Votre roi est menacé, protégez le.");
+                        return false;
+                    }
                     return true;
                 }
                 System.out.println("Cette piece ne peut pas bouger ainsi.");
