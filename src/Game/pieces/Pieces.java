@@ -36,5 +36,10 @@ public abstract class Pieces {
     }
 
 
-    public abstract boolean isValidMove(Position position, Cell[][] board);
+    public abstract boolean isValidMove(Position newPosition, Cell[][] board);
+
+    @Override
+    public String toString() {
+        return  type;
+    }
 }

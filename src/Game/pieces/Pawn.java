@@ -4,6 +4,7 @@ import static java.lang.Math.abs;
 
 public class Pawn extends Pieces{
 
+    @Override
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the pawn's possible moves in chess
         if (newPosition.isValid() ) {
@@ -64,8 +65,9 @@ public class Pawn extends Pieces{
         return false;
     }
 
-    public String toString(){
-        return type;
+    @Override
+    public String toString() {
+        return super.toString();
     }
     public Pawn(int c, Position startPos, String type){
         super(c,startPos,type);

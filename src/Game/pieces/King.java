@@ -25,7 +25,7 @@ public class King extends Pieces {
     }
 
 
-
+    @Override
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the king's possible moves in chess
         if (newPosition.isValid() && board[newPosition.getRow()][newPosition.getColumn()-'a'].isEmpty()){
@@ -36,8 +36,9 @@ public class King extends Pieces {
         return false;
     }
 
-    public String toString(){
-        return type;
+    @Override
+    public String toString() {
+        return super.toString();
     }
     public King(int c, Position startPos,String type){
         super(c,startPos,type);

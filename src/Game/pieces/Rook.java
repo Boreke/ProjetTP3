@@ -2,6 +2,7 @@ package Game.pieces;
 
 public class Rook extends Pieces {
 
+    @Override
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         // Vérifier que la tour ne reste pas sur place
         if (this.position.getRow() == newPosition.getRow() && this.position.getColumn() == newPosition.getColumn()) {
@@ -43,8 +44,9 @@ public class Rook extends Pieces {
     }
 
 
-    public String toString(){
-        return type;
+    @Override
+    public String toString() {
+        return super.toString();
     }
     public Rook(int c, Position startPos, String type){
         super(c,startPos,type);

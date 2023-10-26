@@ -4,6 +4,7 @@ import static java.lang.Math.abs;
 
 public class Bishop extends Pieces{
 
+    @Override
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the bishop's possible moves in chess
         if (newPosition.isValid()) {
@@ -26,8 +27,9 @@ public class Bishop extends Pieces{
         }
         return false;
     }
-    public String toString(){
-        return "B";
+    @Override
+    public String toString() {
+        return super.toString();
     }
     public Bishop(int c, Position startPos,String type){
         super(c,startPos,type);

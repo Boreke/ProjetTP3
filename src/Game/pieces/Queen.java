@@ -4,6 +4,7 @@ import static java.lang.Math.abs;
 
 public class Queen extends Pieces{
 
+    @Override
     public boolean isValidMove(Position newPosition, Cell[][] board) {
         //is the move valid according to the queen's possible moves in chess
         if (newPosition.isValid()){
@@ -60,8 +61,9 @@ public class Queen extends Pieces{
     }
 
 
-    public String toString(){
-        return type;
+    @Override
+    public String toString() {
+        return super.toString();
     }
     public Queen(int c, Position startPos,String type){
         super(c,startPos,type);
